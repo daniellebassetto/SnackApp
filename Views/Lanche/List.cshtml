@@ -1,0 +1,21 @@
+﻿@model LancheListViewModel
+
+@{
+    ViewData["Title"] = "Lanches";
+}
+
+<h2>@Model.CategoriaAtual</h2>
+
+<div class="container">
+    <div class="row">
+        @foreach (var lanche in Model.Lanches)
+        {
+            <div class="col-sm-4 col-md-4 col-lg-4">
+                <img class="img-fluid" src="@lanche.ImagemUrl" alt="Imagem do Lanche" />
+                <h3>@lanche.Preco.ToString("c")</h3>
+                <h4>@lanche.Nome</h4>
+                <p>@lanche.DescricaoCurta</p>
+            </div>
+        }
+    </div>
+</div>
