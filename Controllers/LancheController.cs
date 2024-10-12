@@ -12,9 +12,10 @@ public class LancheController(ILancheRepository lancheRepository) : Controller
     {
         var lancheListViewModel = new LancheListViewModel();
         var lanches = _lancheRepository.Lanches;
+
         lancheListViewModel.Lanches = lanches;
         lancheListViewModel.CategoriaAtual = "Categoria atual";
         
-        return View(lanches);
+        return View(lancheListViewModel);
     }
 }
