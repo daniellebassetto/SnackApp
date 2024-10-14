@@ -20,10 +20,7 @@ public class CarrinhoCompra(SnackAppContext snackAppContext)
 
         session.SetString("CarrinhoId", id);
 
-        return new CarrinhoCompra(context)
-        {
-            Id = id
-        };
+        return new CarrinhoCompra(context) { Id = id };
     }
 
     public void AdicionarAoCarrinho(Lanche lanche)
@@ -83,8 +80,6 @@ public class CarrinhoCompra(SnackAppContext snackAppContext)
 
     public decimal GetCarrinhoCompraTotal()
     {
-        var total = _snackAppContext.CarrinhoCompraItens.Where(c => c.CarrinhoCompraId == Id).Select(c => c.Lanche.Preco * c.Quantidade).Sum();
-
-        return total;
+        return _snackAppContext.CarrinhoCompraItens.Where(c => c.CarrinhoCompraId == Id).Select(c => c.Lanche.Preco * c.Quantidade).Sum();
     }
 }

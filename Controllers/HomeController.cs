@@ -1,14 +1,23 @@
 using Microsoft.AspNetCore.Mvc;
 using SnackApp.Models;
+using SnackApp.Repositories.Interfaces;
+using SnackApp.ViewModels;
 using System.Diagnostics;
 
 namespace SnackApp.Controllers;
 
-public class HomeController : Controller
+public class HomeController(ILancheRepository lancheRepository) : Controller
 {
+    private readonly ILancheRepository _lancheRepository = lancheRepository;
+
     public IActionResult Index()
     {
-        return View();
+        var homeViewModel = new HomeViewModel
+        {
+            LanchesPreferidos = _lancheRepository.LanchesPreferidos
+        };
+
+        return View(homeViewModel);
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
