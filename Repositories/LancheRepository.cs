@@ -13,5 +13,5 @@ public class LancheRepository(SnackAppContext context) : ILancheRepository
 
     public IEnumerable<Lanche> LanchesPreferidos => _context.Lanches.Where(x => x.LanchePreferido).Include(x => x.Categoria);
 
-    public Lanche GetLancheById(int id) => _context.Lanches.FirstOrDefault(x => x.Id == id);
+    public Lanche GetById(int id) => _context.Lanches.FirstOrDefault(x => x.Id == id);
 }

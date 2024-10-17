@@ -23,7 +23,7 @@ public class CarrinhoCompra(SnackAppContext snackAppContext)
         return new CarrinhoCompra(context) { Id = id };
     }
 
-    public void AdicionarAoCarrinho(Lanche lanche)
+    public void AdicionarItem(Lanche lanche)
     {
         var carrinhoCompraItem = _snackAppContext.CarrinhoCompraItens.SingleOrDefault(s => s.Lanche.Id == lanche.Id && s.CarrinhoCompraId == Id);
 
@@ -44,7 +44,7 @@ public class CarrinhoCompra(SnackAppContext snackAppContext)
         _snackAppContext.SaveChanges();
     }
 
-    public int RemoverDoCarrinho(Lanche lanche)
+    public int RemoverItem(Lanche lanche)
     {
         var carrinhoCompraItem = _snackAppContext.CarrinhoCompraItens.SingleOrDefault(s => s.Lanche.Id == lanche.Id && s.CarrinhoCompraId == Id);
 
@@ -67,7 +67,7 @@ public class CarrinhoCompra(SnackAppContext snackAppContext)
 
     public List<CarrinhoCompraItem> GetCarrinhoCompraItens()
     {
-        return CarrinhoCompraItens ?? [.. _snackAppContext.CarrinhoCompraItens.Where(c => c.CarrinhoCompraId == Id).Include(s => s.Lanche)];
+        return [.. _snackAppContext.CarrinhoCompraItens.Where(c => c.CarrinhoCompraId == Id).Include(s => s.Lanche)];
     }
 
     public void LimparCarrinho()

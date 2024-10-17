@@ -23,22 +23,22 @@ public class CarrinhoCompraController(ILancheRepository lancheRepository, Carrin
         return View(carrinhoCompraViewModel);
     }
 
-    public IActionResult AdicionarAoCarrinho(int lancheId)
+    public IActionResult AdicionarItem(int lancheId)
     {
         var lancheSelecionado = _lancheRepository.Lanches.FirstOrDefault(l => l.Id == lancheId);
 
         if (lancheSelecionado != null)
-            _carrinhoCompra.AdicionarAoCarrinho(lancheSelecionado);
+            _carrinhoCompra.AdicionarItem(lancheSelecionado);
 
         return RedirectToAction("Index");
     }
 
-    public IActionResult RemoverDoCarrinho(int lancheId)
+    public IActionResult RemoverItem(int lancheId)
     {
         var lancheSelecionado = _lancheRepository.Lanches.FirstOrDefault(l => l.Id == lancheId);
 
         if (lancheSelecionado != null)
-            _carrinhoCompra.RemoverDoCarrinho(lancheSelecionado);
+            _carrinhoCompra.RemoverItem(lancheSelecionado);
 
         return RedirectToAction("Index");
     }
