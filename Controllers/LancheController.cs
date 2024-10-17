@@ -37,4 +37,31 @@ public class LancheController(ILancheRepository lancheRepository) : Controller
         var lanche = _lancheRepository.GetById(id);
         return View(lanche);
     }
+
+    public IActionResult Search(string search)
+    {
+        IEnumerable<Lanche> lanches;
+        string categoriaAtual = string.Empty;
+
+        if (string.IsNullOrEmpty(search))
+        {
+            lanches = _lancheRepository.Lanches.OrderBy(l => l.Id);
+            categoriaAtual = "Todos os lanches";
+        }
+        else
+        {
+            lanches = _lancheRepository.Lanches.Where(p => p.Nome.ToLower().Contains(search.ToLower()));
+
+            if (lanches.Any())
+                categoriaAtual = "Lanches";
+            else
+                categoriaAtual = "Nenhum lanche foi encontrado";
+        }
+
+        return View("~/Views/Lanche/List.cshtml", new LancheListViewModel
+        {
+            Lanches = lanches,
+            CategoriaAtual = categoriaAtual
+        });
+    }
 }
