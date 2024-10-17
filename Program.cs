@@ -10,6 +10,7 @@ builder.Services.AddDbContext<SnackAppContext>(options => options.UseSqlServer(b
 
 builder.Services.AddTransient<ILancheRepository, LancheRepository>();
 builder.Services.AddTransient<ICategoriaRepository, CategoriaRepository>();
+builder.Services.AddTransient<IPedidoRepository, PedidoRepository>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped(CarrinhoCompra.GetCarrinho);
 

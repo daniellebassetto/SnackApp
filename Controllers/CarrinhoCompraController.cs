@@ -12,7 +12,7 @@ public class CarrinhoCompraController(ILancheRepository lancheRepository, Carrin
 
     public IActionResult Index()
     {
-        _carrinhoCompra.CarrinhoCompraItens = _carrinhoCompra.GetCarrinhoCompraItens();
+        _carrinhoCompra.Itens = _carrinhoCompra.GetCarrinhoCompraItens();
         
         var carrinhoCompraViewModel = new CarrinhoCompraViewModel
         {

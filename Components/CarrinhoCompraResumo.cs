@@ -10,7 +10,7 @@ public class CarrinhoCompraResumo(CarrinhoCompra carrinhoCompra) : ViewComponent
 
     public IViewComponentResult Invoke()
     {
-        _carrinhoCompra.CarrinhoCompraItens = _carrinhoCompra.GetCarrinhoCompraItens();
+        _carrinhoCompra.Itens = _carrinhoCompra.GetCarrinhoCompraItens();
 
         var carrinhoCompraViewModel = new CarrinhoCompraViewModel
         {

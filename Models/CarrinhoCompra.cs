@@ -8,7 +8,7 @@ public class CarrinhoCompra(SnackAppContext snackAppContext)
     private readonly SnackAppContext _snackAppContext = snackAppContext;
 
     public string Id { get; set; }
-    public List<CarrinhoCompraItem> CarrinhoCompraItens { get; set; }
+    public List<CarrinhoCompraItem> Itens { get; set; }
 
     public static CarrinhoCompra GetCarrinho(IServiceProvider serviceProvider)
     {
