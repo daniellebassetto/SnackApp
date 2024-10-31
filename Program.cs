@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SnackApp.Context;
 using SnackApp.Models;
@@ -7,6 +8,17 @@ using SnackApp.Repositories.Interfaces;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<SnackAppContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<SnackAppContext>().AddDefaultTokenProviders();
+
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    options.Password.RequireDigit = true;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireNonAlphanumeric = true;
+    options.Password.RequireUppercase = true;
+    options.Password.RequiredLength = 8;
+    options.Password.RequiredUniqueChars = 1;
+});
 
 builder.Services.AddTransient<ILancheRepository, LancheRepository>();
 builder.Services.AddTransient<ICategoriaRepository, CategoriaRepository>();
@@ -32,6 +44,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseSession();
