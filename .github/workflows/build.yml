@@ -1,0 +1,31 @@
+name: Build .NET 8 MVC Project
+
+# Evento que dispara a ação (pull request)
+on:
+  pull_request:
+    branches:
+      - '*' # Isso fará com que o action seja executado em qualquer branch de feature sendo mergeada
+
+# Define o ambiente de execução
+jobs:
+  build:
+    runs-on: ubuntu-latest # ou outro sistema que preferir
+
+    steps:
+    # Checkout do código da branch de feature
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # Configurar a versão do .NET 8
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 8.0.x # Define a versão do .NET 8
+
+    # Restaurar as dependências
+    - name: Restore dependencies
+      run: dotnet restore
+
+    # Compilar o projeto
+    - name: Build the project
+      run: dotnet build --configuration Release --no-restore
