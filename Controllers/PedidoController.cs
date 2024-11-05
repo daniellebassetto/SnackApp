@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SnackApp.Models;
 using SnackApp.Repositories.Interfaces;
 
@@ -9,12 +10,14 @@ public class PedidoController(IPedidoRepository pedidoRepository, CarrinhoCompra
     private readonly IPedidoRepository _pedidoRepository = pedidoRepository;
     private readonly CarrinhoCompra _carrinhoCompra = carrinhoCompra;
 
+    [Authorize]
     [HttpGet]
     public IActionResult Checkout()
     {
         return View();
     }
 
+    [Authorize]
     [HttpPost]
     public IActionResult Checkout(Pedido pedido)
     {
