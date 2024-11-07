@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SnackApp.Models;
 using SnackApp.Repositories.Interfaces;
 using SnackApp.ViewModels;
@@ -23,6 +24,7 @@ public class CarrinhoCompraController(ILancheRepository lancheRepository, Carrin
         return View(carrinhoCompraViewModel);
     }
 
+    [Authorize]
     public IActionResult AdicionarItem(int lancheId)
     {
         var lancheSelecionado = _lancheRepository.Lanches.FirstOrDefault(l => l.Id == lancheId);
@@ -33,6 +35,7 @@ public class CarrinhoCompraController(ILancheRepository lancheRepository, Carrin
         return RedirectToAction("Index");
     }
 
+    [Authorize]
     public IActionResult RemoverItem(int lancheId)
     {
         var lancheSelecionado = _lancheRepository.Lanches.FirstOrDefault(l => l.Id == lancheId);
