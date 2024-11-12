@@ -76,4 +76,9 @@ public class AccountController(UserManager<IdentityUser> userManager, SignInMana
         await _signInManager.SignOutAsync();
         return RedirectToAction("Index", "Home");
     }
+
+    public IActionResult AccessDenied()
+    {
+        return View();
+    }
 }

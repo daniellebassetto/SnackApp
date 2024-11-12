@@ -9,7 +9,7 @@ public class SeedUserRoleInitial(UserManager<IdentityUser> userManager, RoleMana
 
     public void SeedRoles()
     {
-        if(!_roleManager.RoleExistsAsync("Member").Result)
+        if (!_roleManager.RoleExistsAsync("Member").Result)
         {
             IdentityRole role = new()
             {
@@ -47,9 +47,9 @@ public class SeedUserRoleInitial(UserManager<IdentityUser> userManager, RoleMana
 
             IdentityResult result = _userManager.CreateAsync(user, "Numsey#2024").Result;
 
-            if(result.Succeeded)
+            if (result.Succeeded)
                 _userManager.AddToRoleAsync(user, "Member").Wait();
-            
+
         }
 
         if (_userManager.FindByEmailAsync("admin@localhost").Result == null)
