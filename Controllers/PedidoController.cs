@@ -26,8 +26,8 @@ public class PedidoController(IPedidoRepository pedidoRepository, CarrinhoCompra
 
         List<CarrinhoCompraItem> items = _carrinhoCompra.GetCarrinhoCompraItens();
         _carrinhoCompra.Itens = items;
-        
-        if(_carrinhoCompra.Itens.Count == 0)
+
+        if (_carrinhoCompra.Itens.Count == 0)
             ModelState.AddModelError("", "Seu carrinho está vazio, inclua um lanche...");
 
         foreach (var item in items)
