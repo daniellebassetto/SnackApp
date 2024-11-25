@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using ReflectionIT.Mvc.Paging;
 using SnackApp.Context;
 using SnackApp.Models;
+using SnackApp.ViewModels;
 
 namespace SnackApp.Areas.Admin.Controllers;
 
@@ -12,9 +14,36 @@ public class AdminPedidoController(SnackAppContext context) : Controller
 {
     private readonly SnackAppContext _context = context;
 
-    public async Task<IActionResult> Index()
+    public IActionResult PedidoItens(int? id)
     {
-        return View(await _context.Pedidos.ToListAsync());
+        var pedido = _context.Pedidos.Include(p => p.Itens).ThenInclude(p => p.Lanche).FirstOrDefault(p => p.Id == id);
+
+        if (pedido == null)
+        {
+            Response.StatusCode = 404;
+            return View("PedidoNaoEncontrado", id.Value);
+        }
+
+        PedidoItemViewModel itens = new()
+        {
+            Pedido = pedido,
+            Itens = pedido.Itens
+        };
+
+        return View(itens);
+    }
+
+    public async Task<IActionResult> Index(string filter, int pageIndex = 1, string sort = "Nome")
+    {
+        var resultado = _context.Pedidos.AsNoTracking().AsQueryable();
+
+        if (!string.IsNullOrWhiteSpace(filter))
+            resultado = resultado.Where(p => p.Nome.Contains(filter));
+
+        var model = await PagingList.CreateAsync(resultado, 5, pageIndex, sort, "Nome");
+        model.RouteValue = new RouteValueDictionary { { "filter", filter } };
+
+        return View(model);
     }
 
     public async Task<IActionResult> Details(int? id)
