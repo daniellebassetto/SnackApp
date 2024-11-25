@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ReflectionIT.Mvc.Paging;
+using SnackApp.Areas.Admin.Services;
 using SnackApp.Context;
 using SnackApp.Models;
 using SnackApp.Repositories;
@@ -27,6 +28,7 @@ builder.Services.AddTransient<ICategoriaRepository, CategoriaRepository>();
 builder.Services.AddTransient<IPedidoRepository, PedidoRepository>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped<ISeedUserRoleInitial, SeedUserRoleInitial>();
+builder.Services.AddScoped<RelatorioVendaService>();
 builder.Services.AddScoped(CarrinhoCompra.GetCarrinho);
 
 builder.Services.AddAuthorizationBuilder()
