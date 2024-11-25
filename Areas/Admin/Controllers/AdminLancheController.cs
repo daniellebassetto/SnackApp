@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using ReflectionIT.Mvc.Paging;
 using SnackApp.Context;
 using SnackApp.Models;
 
@@ -13,10 +14,16 @@ public class AdminLancheController(SnackAppContext context) : Controller
 {
     private readonly SnackAppContext _context = context;
 
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index(string filter, int pageIndex = 1, string sort = "Nome")
     {
-        var snackAppContext = _context.Lanches.Include(l => l.Categoria);
-        return View(await snackAppContext.ToListAsync());
+        var resultado = _context.Lanches.Include(l => l.Categoria).AsQueryable();
+
+        if(!string.IsNullOrWhiteSpace(filter))
+            resultado = resultado.Where(l => l.Nome.Contains(filter));
+
+        var model = await PagingList.CreateAsync(resultado, 5, pageIndex, sort, "Nome");
+        model.RouteValue = new RouteValueDictionary { { "filter", filter } };
+        return View(model);
     }
 
     public async Task<IActionResult> Details(int? id)

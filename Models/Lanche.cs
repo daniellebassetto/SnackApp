@@ -41,11 +41,12 @@ public class Lanche
     public string ImagemThumbnailUrl { get; set; }
 
     [Display(Name = "Preferido?")]
-    public bool LanchePreferido { get; set; }
+    public bool Preferido { get; set; }
 
     [Display(Name = "Estoque")]
     public bool EmEstoque { get; set; }
 
+    [Display(Name = "Categorias")]
     public int CategoriaId { get; set; }
     public virtual Categoria Categoria { get; set; }
 }
