@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Admin</title>
+    <title>@(ViewData["Title"] ?? "SnackApp") - Admin</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
@@ -17,6 +17,7 @@
                     <a class="nav-link text-light" asp-area="Admin" asp-controller="AdminCategoria" asp-action="Index">Categorias</a>
                     <a class="nav-link text-light" asp-area="Admin" asp-controller="AdminPedido" asp-action="Index">Pedidos</a>
                     <a class="nav-link text-light" asp-area="Admin" asp-controller="AdminRelatorioVenda" asp-action="Index">Relatório Vendas</a>
+                    <a class="nav-link text-light" asp-area="Admin" asp-controller="AdminImagens" asp-action="Index">Gerenciar Imagens</a>
                 </div>
             </div>
         </nav>
