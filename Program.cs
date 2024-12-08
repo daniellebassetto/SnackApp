@@ -31,6 +31,7 @@ builder.Services.AddTransient<IPedidoRepository, PedidoRepository>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped<ISeedUserRoleInitial, SeedUserRoleInitial>();
 builder.Services.AddScoped<RelatorioVendaService>();
+builder.Services.AddScoped<GraficoVendasService>();
 builder.Services.AddScoped(CarrinhoCompra.GetCarrinho);
 
 builder.Services.AddAuthorizationBuilder()
